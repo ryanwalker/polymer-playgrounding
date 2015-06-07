@@ -8,16 +8,41 @@
     <!-- 2. Use an HTML Import to bring in some elements. -->
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
+      <style>
+          body {
+              background-color: lightgray;
+          }
+          .main {
+              width: 65%;
+              margin: 0 auto;
+              border-color: #000000;
+              border-width: 1px;
+              background-color: white;
+              border-style: solid;
+              border-radius: 15px;
+              margin-top: 100px;
+          }
+          .inner-main {
+              margin-right: 15px;
+              margin-left: 15px;
+          }
+      </style>
   </head>
   <body unresolved>
     <!-- 3. Declare the element. Configure using its attributes. -->
-    <paper-input label="Your name here"></paper-input>
-    <paper-button>Say Hello</paper-button>
-    <div id="greeting"></div>
+    <div class="main">
+        <div class="inner-main">
+            <paper-input label="Your name here"></paper-input>
+            <paper-button>Say Hello</paper-button>
+            <div id="greeting"></div>
+        </div>
+
+    </div>
 
     <script>
-      // To ensure that elements are ready on polyfilled browsers, 
-      // wait for WebComponentsReady. 
+        var ENTER_KEY_CODE = 13;
+      // To ensure that elements are ready on polyfilled browsers,
+      // wait for WebComponentsReady.
       document.addEventListener('WebComponentsReady', function() {
         var input = document.querySelector('paper-input');
         var button = document.querySelector('paper-button');
@@ -25,7 +50,23 @@
         button.addEventListener('click', function() {
           greeting.textContent = 'Hello, ' + input.value;
         });
+        input.addEventListener('keyup', function (event) {
+            if (event.keyCode === ENTER_KEY_CODE) { //=== does not do type conversion before comparing, == does
+                button.click();
+            }
+        });
       });
+        /**
+        Javascript's data types
+         Primitives:
+            String
+            Number
+            Boolean
+            null - an object, can be assigned to a var. typeof would return 'Object'
+            undefined - means no value has yet been assigned to a var. typeof would return 'undefined'
+            Symbol
+         Object
+        **/
     </script>
   </body>
 </html>
